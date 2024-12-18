@@ -1,3 +1,4 @@
+// Copyright 2025 KodeWorker(fxp61005@gmail.com)
 #include "logger.hpp"
 
 Logger& Logger::GetInstance() {
@@ -14,9 +15,9 @@ std::string get_current_time() {
     std::tm localTime;
 
     #if defined(_WIN32) || defined(_WIN64)
-        localtime_s(&localTime, &now); // Use localtime_s on Windows
+        localtime_s(&localTime, &now);  // Use localtime_s on Windows
     #else
-        localtime_r(&now, &localTime); // Use localtime_r on POSIX systems
+        localtime_r(&now, &localTime);  // Use localtime_r on POSIX systems
     #endif
 
     std::ostringstream oss;
@@ -30,11 +31,10 @@ void Logger::log(const std::string message, bool show) {
     std::ofstream out_file(filepath, std::ios::app);
     std::string out = "[" + get_current_time() + "] " + message;
 
-    if(show)
+    if (show)
         std::cout << out << std::endl;
 
-    if(out_file.is_open())
-    {
+    if (out_file.is_open()) {
         out_file << out << std::endl;
         out_file.close();
     }

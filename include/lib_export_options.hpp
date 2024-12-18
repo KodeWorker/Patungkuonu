@@ -1,5 +1,6 @@
-#ifndef LIB_EXPORTS_OPTIONS_HPP
-#define LIB_EXPORTS_OPTIONS_HPP
+// Copyright 2025 KodeWorker(fxp61005@gmail.com)
+#ifndef INCLUDE_LIB_EXPORT_OPTIONS_HPP_
+#define INCLUDE_LIB_EXPORT_OPTIONS_HPP_
 
 #if defined(_WIN32) || defined(_WIN64)
     #ifdef BUILDING_DLL
@@ -17,4 +18,4 @@
     #define LIB_EXPORT
 #endif
 
-#endif // LIB_EXPORTS_OPTIONS_HPP
+#endif  // INCLUDE_LIB_EXPORT_OPTIONS_HPP_
