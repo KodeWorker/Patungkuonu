@@ -1,6 +1,8 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
 #include "logger.hpp"
 
+namespace HPP {
+
 Logger& Logger::GetInstance() {
     static Logger instance;
     return instance;
@@ -39,3 +41,5 @@ void Logger::log(const std::string message, bool show) {
         out_file.close();
     }
 }
+
+}  // namespace HPP

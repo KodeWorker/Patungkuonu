@@ -3,13 +3,17 @@
 #define INCLUDE_ENGINE_HPP_
 #include "lib_export_options.hpp"
 
+namespace HPP {
+
 class LIB_EXPORT Engine {
  public:
-    Engine();
-    ~Engine();
-    void run();
+  Engine();
+  ~Engine();
+  void run();
  private:
-    // Engine data
+  // Engine data
 };
+
+}  // namespace HPP
 
 #endif  // INCLUDE_ENGINE_HPP_

@@ -5,6 +5,8 @@
 #include "engine.hpp"
 #include "logger.hpp"
 
+namespace HPP {
+
 Engine::Engine() {
     // Initialize the engine
 }
@@ -25,3 +27,5 @@ void Engine::run() {
         SDL_PollEvent(&event);
     }
 }
+
+}  // namespace HPP

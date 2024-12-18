@@ -2,6 +2,6 @@
 #include "engine.hpp"
 
 void main() {
-    Engine engine;
+    HPP::Engine engine;
     engine.run();
 }

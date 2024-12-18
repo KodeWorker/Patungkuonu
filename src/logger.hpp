@@ -9,17 +9,21 @@
 #include <iomanip>
 #include <sstream>
 
+namespace HPP {
+
 class Logger {
  public:
-    static Logger& GetInstance();
-    void set_filepath(const std::string filepath);
-    void log(const std::string message, bool show = true);
-    Logger(Logger const&) = delete;
-    void operator=(Logger const&) = delete;
+  static Logger& GetInstance();
+  void set_filepath(const std::string filepath);
+  void log(const std::string message, bool show = true);
+  Logger(Logger const&) = delete;
+  void operator=(Logger const&) = delete;
  private:
-    std::string filepath = "log.txt";
-    std::mutex mtx;
-    Logger() {}
+  std::string filepath = "log.txt";
+  std::mutex mtx;
+  Logger() {}
 };
+
+}  // namespace HPP
 
 #endif  // SRC_LOGGER_HPP_
