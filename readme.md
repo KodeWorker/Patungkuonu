@@ -32,6 +32,7 @@ make
 ## Project Structure
 
 ## TODO List
-[-] SDL
-[-] cpplint
-[-] googletest
+- [x] SDL
+- [x] cpplint
+- [x] googletest
+- [] sprite object
