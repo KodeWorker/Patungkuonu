@@ -35,4 +35,4 @@ make
 - [x] SDL
 - [x] cpplint
 - [x] googletest
-- [] sprite object
+- [ ] sprite object
