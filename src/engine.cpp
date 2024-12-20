@@ -5,7 +5,7 @@
 #include "engine.hpp"
 #include "logger.hpp"
 
-namespace HPP {
+namespace Patungkuonu {
 
 Engine::Engine() {
     // Initialize the engine
@@ -21,7 +21,7 @@ void Engine::run() {
 
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_Window* Window{SDL_CreateWindow("Hello Window", 0, 0, 800, 300, 0)};
+    SDL_Window* Window{SDL_CreateWindow("Hello Window", 0, 0, 800, 600, 0)};
     SDL_Event event;
     while (true) {
         SDL_PollEvent(&event);

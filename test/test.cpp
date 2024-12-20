@@ -5,9 +5,9 @@
 #include "logger.hpp"
 
 TEST(SourceElementTest, LoggerGetInstanceTest) {
-    HPP::Logger& logger = HPP::Logger::GetInstance();
+    Patungkuonu::Logger& logger = Patungkuonu::Logger::GetInstance();
 }
 
 TEST(SourceElementTest, EngineTest) {
-    HPP::Engine engine;
+    Patungkuonu::Engine engine;
 }

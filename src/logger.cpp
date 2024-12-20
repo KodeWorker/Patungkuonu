@@ -1,7 +1,7 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
 #include "logger.hpp"
 
-namespace HPP {
+namespace Patungkuonu {
 
 Logger& Logger::GetInstance() {
     static Logger instance;

@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace HPP {
+namespace Patungkuonu {
 
 class Logger {
  public:
