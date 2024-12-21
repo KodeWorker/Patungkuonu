@@ -25,3 +25,14 @@
 
     copy built googletest dlls to destination of project
     https://stackoverflow.com/questions/69978314/cmake-with-gtest-on-windows-build-starts-test-but-shared-libs-cannot-be-found
+
+- 2024/12/21 Debian support
+
+    DO NOT BUILD IN ANACONDA ENVIRONMENT! IT CAUSES LINKING ISSUES!
+
+    can not find freetype while adding SDL_ttf
+    https://discourse.libsdl.org/t/build-sdl2-ttf-for-android/46897/8
+
+    Getting started with SDL
+    https://lazyfoo.net/tutorials/SDL/
+    
