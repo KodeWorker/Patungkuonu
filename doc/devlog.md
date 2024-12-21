@@ -5,8 +5,8 @@
 - 2024/12/18 employ SDL as submodule
 
     SDL release-2.30.10
-    SDL_image release-2.8.3
-    SDL_ttf release-2.22.0 (need update submodules)
+    SDL_image release-2.8.3 (run script in external/)
+    SDL_ttf release-2.22.0 (run script in external/)
 
     https://www.studyplan.dev/sdl2-minesweeper/sdl2-cmake
 

@@ -3,7 +3,7 @@
 #define INCLUDE_ENGINE_HPP_
 #include "lib_export_options.hpp"
 
-namespace Patungkuonu {
+namespace Patungkuonu {  // namespace Patungkuonu
 
 class LIB_EXPORT Engine {
  public:
@@ -14,6 +14,6 @@ class LIB_EXPORT Engine {
   // Engine data
 };
 
-}  // namespace HPP
+}  // namespace Patungkuonu
 
 #endif  // INCLUDE_ENGINE_HPP_

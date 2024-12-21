@@ -5,7 +5,7 @@
 #include "engine.hpp"
 #include "logger.hpp"
 
-namespace Patungkuonu {
+namespace Patungkuonu {  // namespace HPP
 
 Engine::Engine() {
     // Initialize the engine
@@ -28,4 +28,4 @@ void Engine::run() {
     }
 }
 
-}  // namespace HPP
+}  // namespace Patungkuonu

@@ -1,7 +1,7 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
 #include "logger.hpp"
 
-namespace Patungkuonu {
+namespace Patungkuonu {  // namespace Patungkuonu
 
 Logger& Logger::GetInstance() {
     static Logger instance;
@@ -42,4 +42,4 @@ void Logger::log(const std::string message, bool show) {
     }
 }
 
-}  // namespace HPP
+}  // namespace Patungkuonu
