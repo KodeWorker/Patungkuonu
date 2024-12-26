@@ -3,11 +3,13 @@
 #include "gmock/gmock.h"
 #include "engine.hpp"
 #include "logger.hpp"
+#include "setting.hpp"
 
 TEST(SourceElementTest, LoggerGetInstanceTest) {
     Patungkuonu::Logger& logger = Patungkuonu::Logger::GetInstance();
 }
 
 TEST(SourceElementTest, EngineTest) {
-    Patungkuonu::Engine engine;
+    Patungkuonu::Setting setting;
+    Patungkuonu::Engine engine(setting);
 }

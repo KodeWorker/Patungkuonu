@@ -35,4 +35,9 @@
 
     Getting started with SDL
     https://lazyfoo.net/tutorials/SDL/
+
+- 2024/12/27
+
+    implement settings
+    try to implement serializer/deserializer (working on it)
     

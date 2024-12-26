@@ -4,8 +4,9 @@
 
 namespace Patungkuonu {  // namespace HPP
 
-Engine::Engine() {
+Engine::Engine(const Setting& setting) {
     // Initialize the engine
+    m_setting = setting;
     Initialize();
 }
 
@@ -22,11 +23,11 @@ bool Engine::Initialize() {
         Logger::GetInstance().log("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
         success = false;
     } else {
-        m_window = SDL_CreateWindow(m_window_name.c_str(),
+        m_window = SDL_CreateWindow(m_setting.GetWindowName().c_str(),
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SDL_WINDOWPOS_UNDEFINED,
-                                    m_window_width,
-                                    m_window_height,
+                                    m_setting.GetWindowWidth(),
+                                    m_setting.GetWindowHeight(),
                                     SDL_WINDOW_SHOWN);
         if (m_window == nullptr) {
             Logger::GetInstance().log("Window could not be created! SDL_Error: " + std::string(SDL_GetError()));

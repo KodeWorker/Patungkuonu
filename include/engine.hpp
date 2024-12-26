@@ -2,20 +2,18 @@
 #ifndef INCLUDE_ENGINE_HPP_
 #define INCLUDE_ENGINE_HPP_
 #include <SDL2/SDL.h>
-#include <string>
+#include "setting.hpp"
 #include "lib_export_options.hpp"
 
 namespace Patungkuonu {  // namespace Patungkuonu
 
 class LIB_EXPORT Engine {
  public:
-  Engine();
+  explicit Engine(const Setting& setting);
   ~Engine();
   void run();
  private:
-  std::string m_window_name{"Engine"};
-  int m_window_width{800};
-  int m_window_height{600};
+  Setting m_setting;
   SDL_Window* m_window{nullptr};
   SDL_Surface* m_surface{nullptr};
   bool Initialize();

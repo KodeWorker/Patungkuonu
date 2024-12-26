@@ -49,4 +49,6 @@ cmake --build . --config release
 - [x] SDL
 - [x] cpplint
 - [x] googletest
+- [ ] settings
 - [ ] sprite object
+
