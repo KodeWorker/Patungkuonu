@@ -39,12 +39,30 @@ void Setting::SetWindowHeight(int window_height) {
     m_window_height = window_height;
 }
 
-void Serializable::Serialize(const std::string& path) {
-    // TODO(kodeworker): Serialize the data
+void Setting::Serialize(const std::string& path) const {
+    // Serialize the data
+    std::ofstream outFile(path, std::ios::binary);
+    if (outFile.is_open()) {
+        outFile.write(reinterpret_cast<const char*>(m_window_name.c_str()), sizeof(m_name_length));
+        outFile.write(reinterpret_cast<const char*>(&m_window_width), sizeof(m_window_width));
+        outFile.write(reinterpret_cast<const char*>(&m_window_height), sizeof(m_window_height));
+        outFile.close();
+    } else {
+        Logger::GetInstance().error("Failed to open file for serialization");
+    }
 }
 
-void Serializable::Deserialize(const std::string& path) {
-    // TODO(kodeworker) Deserialize the data
+void Setting::Deserialize(const std::string& path) {
+    // Deserialize the data
+    std::ifstream inFile(path, std::ios::binary);
+    if (inFile.is_open()) {
+        inFile.read(reinterpret_cast<char*>(&m_window_name[0]), sizeof(m_name_length));
+        inFile.read(reinterpret_cast<char*>(&m_window_width), sizeof(m_window_width));
+        inFile.read(reinterpret_cast<char*>(&m_window_height), sizeof(m_window_height));
+        inFile.close();
+    } else {
+        Logger::GetInstance().error("Failed to open file for deserialization");
+    }
 }
 
 }  // namespace Patungkuonu

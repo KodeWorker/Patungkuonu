@@ -27,11 +27,11 @@ std::string get_current_time() {
     return oss.str();
 }
 
-void Logger::log(const std::string message, bool show) {
+void Logger::log(const std::string message, LogLevel level, bool show) {
     std::lock_guard<std::mutex> lock(mtx);
 
     std::ofstream out_file(filepath, std::ios::app);
-    std::string out = "[" + get_current_time() + "] " + message;
+    std::string out = "[" + get_current_time() + "][" + level.to_string() + "] " + message;
 
     if (show)
         std::cout << out << std::endl;

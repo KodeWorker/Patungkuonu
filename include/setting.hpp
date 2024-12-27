@@ -8,8 +8,8 @@ namespace Patungkuonu {  // namespace Patungkuonu
 
 class Serializable {
  public:
-  void Serialize(const std::string& path);
-  void Deserialize(const std::string& path);
+  virtual void Serialize(const std::string& path) const = 0;
+  virtual void Deserialize(const std::string& path) = 0;
 };
 
 class LIB_EXPORT Setting : public Serializable {
@@ -22,7 +22,10 @@ class LIB_EXPORT Setting : public Serializable {
   void SetWindowWidth(int window_width);
   const int& GetWindowHeight() const;
   void SetWindowHeight(int window_height);
+  void Serialize(const std::string& path) const override;
+  void Deserialize(const std::string& path) override;
  private:
+  size_t m_name_length{32};
   std::string m_window_name{"Engine"};
   int m_window_width{800};
   int m_window_height{600};

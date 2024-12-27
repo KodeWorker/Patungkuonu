@@ -17,10 +17,10 @@ Engine::~Engine() {
 
 bool Engine::Initialize() {
     // Initialize the engine
-    Logger::GetInstance().log("Engine is initialized");
+    Logger::GetInstance().info("Engine is initialized");
     bool success = true;
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        Logger::GetInstance().log("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
+        Logger::GetInstance().error("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
         success = false;
     } else {
         m_window = SDL_CreateWindow(m_setting.GetWindowName().c_str(),
@@ -30,10 +30,10 @@ bool Engine::Initialize() {
                                     m_setting.GetWindowHeight(),
                                     SDL_WINDOW_SHOWN);
         if (m_window == nullptr) {
-            Logger::GetInstance().log("Window could not be created! SDL_Error: " + std::string(SDL_GetError()));
+            Logger::GetInstance().error("Window could not be created! SDL_Error: " + std::string(SDL_GetError()));
             success = false;
         } else {
-            Logger::GetInstance().log("Window created successfully");
+            Logger::GetInstance().info("Window created successfully");
             m_surface = SDL_GetWindowSurface(m_window);
         }
     }
@@ -47,12 +47,12 @@ void Engine::Cleanup() {
     SDL_DestroyWindow(m_window);
     m_window = nullptr;
     SDL_Quit();
-    Logger::GetInstance().log("Engine is cleaned up");
+    Logger::GetInstance().info("Engine is cleaned up");
 }
 
 void Engine::run() {
     // Run the engine
-    Logger::GetInstance().log("Engine is running");
+    Logger::GetInstance().info("Engine is running");
     bool quit = false;
     SDL_Event e;
     while (!quit) {

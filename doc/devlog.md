@@ -39,5 +39,8 @@
 - 2024/12/27
 
     implement settings
-    try to implement serializer/deserializer (working on it)
+    implement serializer/deserializer
+
+    implement loglevel
+    https://www.reddit.com/r/cpp/comments/zw59lh/enums_with_methods/
     
