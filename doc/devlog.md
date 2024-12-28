@@ -43,4 +43,14 @@
 
     implement loglevel
     https://www.reddit.com/r/cpp/comments/zw59lh/enums_with_methods/
+
+- 2024/12/28
+
+    start implementing sprite object
+
+    asset for demo:
+    https://kenmi-art.itch.io/cute-fantasy-rpg
+
+    understand link property:
+    https://stackoverflow.com/questions/69783203/examples-of-when-public-private-interface-should-be-used-in-cmake
     

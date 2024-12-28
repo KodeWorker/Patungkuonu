@@ -49,6 +49,8 @@ cmake --build . --config release
 - [x] SDL
 - [x] cpplint
 - [x] googletest
-- [ ] settings
+- [x] settings
 - [ ] sprite object
+  - [x] basic operation
+  - [ ] subsqence of a sprite
 

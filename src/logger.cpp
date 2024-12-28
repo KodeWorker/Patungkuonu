@@ -1,5 +1,11 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
-#include "logger.hpp"
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include "logger.hpp"  // NOLINT
 
 namespace Patungkuonu {  // namespace Patungkuonu
 
@@ -31,7 +37,7 @@ void Logger::log(const std::string message, LogLevel level, bool show) {
     std::lock_guard<std::mutex> lock(mtx);
 
     std::ofstream out_file(filepath, std::ios::app);
-    std::string out = "[" + get_current_time() + "][" + level.to_string() + "] " + message;
+    std::string out = "[" + get_current_time() + "][" + std::string(level.to_string()) + "] " + message;
 
     if (show)
         std::cout << out << std::endl;

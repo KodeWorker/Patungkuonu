@@ -2,12 +2,10 @@
 #ifndef SRC_LOGGER_HPP_
 #define SRC_LOGGER_HPP_
 #include <string>
+#include <string_view>
+#include <stdexcept>
+#include <array>
 #include <mutex>
-#include <fstream>
-#include <iostream>
-#include <ctime>
-#include <iomanip>
-#include <sstream>
 
 namespace Patungkuonu {  // namespace Patungkuonu
 
@@ -15,8 +13,9 @@ class LogLevel {
  public:
   enum Enum{ INFO, WARNING, ERROR};
 
-  //constexpr LogLevel() = default;
-  /* implicit */ constexpr LogLevel(Enum e) : e(e) {}
+  // Default constructor.
+  constexpr LogLevel() : e(INFO) {}
+  /* implicit */ constexpr LogLevel(Enum e) : e(e) {}  // NOLINT
 
   // Allows comparisons with Enum constants.
   constexpr operator Enum() const { return e; }
@@ -24,7 +23,7 @@ class LogLevel {
   // Needed to prevent if(c)
   explicit operator bool() const = delete;
 
-  std::string to_string() {
+  constexpr std::string_view to_string() const {
     switch (e) {
       case INFO:
         return "INFO";
@@ -35,6 +34,10 @@ class LogLevel {
       default:
         return "UNKNOWN";
     }
+  }
+
+  static constexpr std::array<LogLevel, 3> values() {
+    return { LogLevel::INFO, LogLevel::WARNING, LogLevel::ERROR };
   }
 
  private:

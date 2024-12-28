@@ -1,9 +1,10 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "setting.hpp"
-#include "logger.hpp"
+#include "setting.hpp"  // NOLINT
+#include "logger.hpp"  // NOLINT
 
 namespace Patungkuonu {  // namespace Patungkuonu
 

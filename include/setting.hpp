@@ -2,7 +2,7 @@
 #ifndef INCLUDE_SETTING_HPP_
 #define INCLUDE_SETTING_HPP_
 #include <string>
-#include "lib_export_options.hpp"
+#include "lib_export_options.hpp"  // NOLINT
 
 namespace Patungkuonu {  // namespace Patungkuonu
 

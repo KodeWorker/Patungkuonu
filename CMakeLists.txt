@@ -1,10 +1,13 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+SET(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 GET_FILENAME_COMPONENT(CURRENT_DIRNAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 SET(ROOT_PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 PROJECT(${CURRENT_DIRNAME})
 SET(ROOT_PROJECT_NAME ${PROJECT_NAME})
 
-SET(CPPLINT_OPTIONS --filter=-build/include_subdir,-build/include_what_you_use --linelength=120 --exclude=${ROOT_PROJECT_DIR}/3rdparty --exclude=${ROOT_PROJECT_DIR}/bin --exclude=${ROOT_PROJECT_DIR}/build --exclude=${ROOT_PROJECT_DIR}/data --recursive ${ROOT_PROJECT_DIR})
+SET(CPPLINT_OPTIONS --linelength=120 --exclude=${ROOT_PROJECT_DIR}/3rdparty --exclude=${ROOT_PROJECT_DIR}/bin --exclude=${ROOT_PROJECT_DIR}/build --exclude=${ROOT_PROJECT_DIR}/data --recursive ${ROOT_PROJECT_DIR})
 IF (UNIX)
     message("-- Run Cpplint if installed")
     SET(CMAKE_CXX_CPPLINT "cpplint" ${CPPLINT_OPTIONS})
