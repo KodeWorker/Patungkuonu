@@ -50,7 +50,8 @@ cmake --build . --config release
 - [x] cpplint
 - [x] googletest
 - [x] settings
-- [ ] sprite object
+- [x] sprite object
   - [x] basic operation
-  - [ ] subsqence of a sprite
+  - [x] subsqence of a sprite
+- [ ] player object
 

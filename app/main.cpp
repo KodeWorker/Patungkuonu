@@ -15,9 +15,11 @@ int main() {
     sprite.SetSize(Patungkuonu::Size{32, 32});
     sprite.SetPosition(Patungkuonu::Position{0, 0});
     sprite.SetPlaybackSpeed(5.0f);
+    sprite.SetRange(0, 5);
 
     Patungkuonu::Engine engine(setting);
     engine.AddSprite(&sprite);
+    sprite.UpdateRange(6, 11, SDL_FLIP_HORIZONTAL);
     engine.Run();
 
     return 0;

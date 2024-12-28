@@ -29,35 +29,39 @@ class Sprite {
   void SetPath(const std::string& path) { m_path = path; }
   const std::string& GetPath() const { return m_path; }
   void SetSize(Size size) {
-    m_width = size.width;
-    m_height = size.height;
+    m_size.width = size.width;
+    m_size.height = size.height;
   }
-  Size GetSize() const { return {m_width, m_height}; }
+  Size GetSize() const { return {m_size.width, m_size.height}; }
   void SetPosition(Position position) {
-    m_x = position.x;
-    m_y = position.y;
+    m_position.x = position.x;
+    m_position.y = position.y;
   }
-  Position GetPosition() const { return {m_x, m_y}; }
+  Position GetPosition() const { return {m_position.x, m_position.y}; }
   void SetPlaybackSpeed(float speed) { m_playback_speed = speed; }
   float GetPlaybackSpeed() const { return m_playback_speed; }
+  void SetRange(int start, int end) {
+    m_start_frame = start;
+    m_end_frame = end;
+  }
+  void UpdateRange(int start_frame, int end_frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
  private:
   std::string m_name = "";
   std::string m_path = "";
-  int m_width = 0;
-  int m_height = 0;
-  int m_x = 0;
-  int m_y = 0;
+  Size m_size = {0, 0};
+  Size m_texture_size = {0, 0};
+  Position m_position = {0, 0};
   float m_time = 0.0f;  // in seconds
   float m_playback_speed = 60.0f;  // 60 frames per second
   int m_current_frame = 0;
   int m_total_frames = 0;
-  int m_begin_frame = 0;
+  int m_start_frame = 0;
   int m_end_frame = 0;
+  SDL_RendererFlip m_flip = SDL_FLIP_NONE;
   std::vector<SDL_Rect> m_frames;
   SDL_Texture* m_texture{nullptr};
   SDL_Renderer* m_renderer{nullptr};
-  SDL_Surface* m_surface{nullptr};
 };
 
 }  // namespace Patungkuonu

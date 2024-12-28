@@ -32,14 +32,24 @@ void Sprite::Attach(SDL_Renderer* renderer) {
     if (m_texture == nullptr) {
         Logger::GetInstance().error("Failed to load texture: " + m_path);
     }
-    int textureWidth, textureHeight;
-    SDL_QueryTexture(m_texture, nullptr, nullptr, &textureWidth, &textureHeight);
-    if (textureHeight % m_height != 0 || textureWidth % m_width != 0) {
+    SDL_QueryTexture(m_texture, nullptr, nullptr, &m_texture_size.width, &m_texture_size.height);
+    if (m_texture_size.height % m_size.height != 0 || m_texture_size.width % m_size.width != 0) {
         Logger::GetInstance().error("Invalid sprite size: " + m_path);
     }
-    for (int y = 0; y < textureHeight; y += m_height) {
-        for (int x = 0; x < textureWidth; x += m_width) {
-            SDL_Rect rect = {x, y, m_width, m_height};
+    UpdateRange(m_start_frame, m_end_frame);
+}
+
+void Sprite::UpdateRange(int start_frame, int end_frame, SDL_RendererFlip flip) {
+    // Update the range
+    m_flip = flip;
+    m_frames.clear();
+    for (int y = 0; y < m_texture_size.height; y += m_size.height) {
+        for (int x = 0; x < m_texture_size.width; x += m_size.width) {
+            int frame = y / m_size.height * m_texture_size.width / m_size.width + x / m_size.width;
+            if (frame < start_frame || frame > end_frame) {
+                continue;
+            }
+            SDL_Rect rect = {x, y, m_size.width, m_size.height};
             m_frames.push_back(rect);
         }
     }
@@ -56,8 +66,8 @@ void Sprite::Update(float delta) {
 void Sprite::Render() {
     // Render the sprite
     SDL_Rect srcrect = m_frames[m_current_frame];
-    SDL_Rect dstrect = {m_x, m_y, m_width, m_height};
-    SDL_RenderCopy(m_renderer, m_texture, &srcrect, &dstrect);
+    SDL_Rect dstrect = {m_position.x, m_position.y, m_size.width, m_size.height};
+    SDL_RenderCopyEx(m_renderer, m_texture, &srcrect, &dstrect, 0, nullptr, m_flip);
 }
 
 }  // namespace Patungkuonu
