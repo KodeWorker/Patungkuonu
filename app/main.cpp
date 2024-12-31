@@ -11,7 +11,6 @@ int main(int argc, char* argv[]) {
 
     Patungkuonu::Sprite sprite;
     sprite.SetPath("../assets/Cute_Fantasy_Free/Player/Player.png");
-    sprite.SetName("Player");
     sprite.SetSize(Patungkuonu::Size{32, 32});
     sprite.SetPosition(Patungkuonu::Position{0, 0});
     sprite.SetPlaybackSpeed(5.0f);

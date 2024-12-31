@@ -59,7 +59,8 @@ void Sprite::Update(float delta) {
 void Sprite::Render(SDL_Renderer* renderer) {
     // Render the sprite
     SDL_Rect srcrect = m_vec_frames[m_current_frame];
-    SDL_Rect dstrect = {m_position.x, m_position.y, (int)(m_size.width*m_ratio), (int)(m_size.height*m_ratio)};
+    SDL_Rect dstrect = {m_position.x, m_position.y,
+                        static_cast<int>(m_size.width*m_ratio), static_cast<int>(m_size.height*m_ratio)};
     SDL_RenderCopyEx(renderer, m_texture, &srcrect, &dstrect, 0, nullptr, (SDL_RendererFlip)m_flip);
 }
 

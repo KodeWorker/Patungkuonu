@@ -34,8 +34,6 @@ class LIB_EXPORT Sprite {
   void Update(float delta);
   void UpdateFrames(size_t start_frame, size_t end_frame);
   // Setters and Getters
-  void SetName(const std::string& name) { m_name = name; }
-  const std::string& GetName() const { return m_name; }
   void SetPath(const std::string& path) { m_path = path; }
   const std::string& GetPath() const { return m_path; }
   void SetSize(Size size) {
