@@ -16,10 +16,12 @@ int main(int argc, char* argv[]) {
     sprite.SetPosition(Patungkuonu::Position{0, 0});
     sprite.SetPlaybackSpeed(5.0f);
     sprite.SetRange(0, 5);
+    sprite.SetRatio(5.0f);
 
     Patungkuonu::Engine engine(setting);
     engine.AddSprite(&sprite);
-    sprite.UpdateRange(6, 11, Patungkuonu::Flip::FLIP_HORIZONTAL);
+    sprite.SetFlip(Patungkuonu::Flip::FLIP_HORIZONTAL);
+    sprite.UpdateFrames(6, 11);
     engine.Run();
 
     return 0;

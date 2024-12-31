@@ -1,5 +1,5 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
-#pragma warning( disable: 4251 )
+#pragma warning(disable: 4251)
 #ifndef INCLUDE_SETTING_HPP_
 #define INCLUDE_SETTING_HPP_
 #include <string>

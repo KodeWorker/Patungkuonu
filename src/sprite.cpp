@@ -30,12 +30,11 @@ void Sprite::Load(SDL_Renderer* renderer) {
     if (m_texture_size.height % m_size.height != 0 || m_texture_size.width % m_size.width != 0) {
         Logger::GetInstance().error("Invalid sprite size: " + m_path);
     }
-    UpdateRange(m_start_frame, m_end_frame);
+    UpdateFrames(m_start_frame, m_end_frame);
 }
 
-void Sprite::UpdateRange(size_t start_frame, size_t end_frame, Flip flip) {
-    // Update the range
-    m_flip = flip;
+void Sprite::UpdateFrames(size_t start_frame, size_t end_frame) {
+    // Update the frames of the sprite
     m_vec_frames.clear();
     for (int y = 0; y < m_texture_size.height; y += m_size.height) {
         for (int x = 0; x < m_texture_size.width; x += m_size.width) {
@@ -60,7 +59,7 @@ void Sprite::Update(float delta) {
 void Sprite::Render(SDL_Renderer* renderer) {
     // Render the sprite
     SDL_Rect srcrect = m_vec_frames[m_current_frame];
-    SDL_Rect dstrect = {m_position.x, m_position.y, m_size.width, m_size.height};
+    SDL_Rect dstrect = {m_position.x, m_position.y, (int)(m_size.width*m_ratio), (int)(m_size.height*m_ratio)};
     SDL_RenderCopyEx(renderer, m_texture, &srcrect, &dstrect, 0, nullptr, (SDL_RendererFlip)m_flip);
 }
 
