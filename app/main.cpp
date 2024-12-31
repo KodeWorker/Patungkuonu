@@ -2,6 +2,7 @@
 #include "setting.hpp"  // NOLINT
 #include "engine.hpp"  // NOLINT
 #include "sprite.hpp"  // NOLINT
+#include "object.hpp"  // NOLINT
 
 int main(int argc, char* argv[]) {
     Patungkuonu::Setting setting;
@@ -15,12 +16,18 @@ int main(int argc, char* argv[]) {
     sprite.SetPosition(Patungkuonu::Position{0, 0});
     sprite.SetPlaybackSpeed(5.0f);
     sprite.SetRange(0, 5);
-    sprite.SetRatio(5.0f);
+    sprite.SetRatio(2.0f);
+
+    Patungkuonu::Player player;
+    player.SetName("Player");
+    player.SetPosition(Patungkuonu::Position{0, 0});
+    player.SetSize(Patungkuonu::Size{64, 64});
+    player.SetCollideType(Patungkuonu::CollideType::COLLIDE_CIRCLE);
+    player.SetCollideCoefficients({.8f});
+    player.SetSprite(&sprite);
 
     Patungkuonu::Engine engine(setting);
-    engine.AddSprite(&sprite);
-    sprite.SetFlip(Patungkuonu::Flip::FLIP_HORIZONTAL);
-    sprite.UpdateFrames(6, 11);
+    engine.AddObject(&player);
     engine.Run();
 
     return 0;

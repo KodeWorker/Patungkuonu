@@ -63,3 +63,9 @@
 
     warning C4251:
     https://www.cnblogs.com/zhangyz/articles/6238841.html
+
+- 2025/1/1
+
+    Multiple key press in SDL:
+
+    https://stackoverflow.com/questions/1252976/how-to-handle-multiple-keypresses-at-once-with-sdl

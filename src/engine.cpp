@@ -1,6 +1,8 @@
 // Copyright 2025 KodeWorker(fxp61005@gmail.com)
 #include <string>
+#include <memory>
 #include "engine.hpp"  // NOLINT
+#include "sprite.hpp"  // NOLINT
 #include "logger.hpp"  // NOLINT
 
 namespace Patungkuonu {  // namespace HPP
@@ -20,6 +22,7 @@ bool Engine::Initialize() {
     // Initialize the engine
     Logger::GetInstance().info("Engine is initialized");
     bool success = true;
+    m_event = std::make_unique<SDL_Event>();
     IMG_Init(IMG_INIT_PNG);
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         Logger::GetInstance().error("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
@@ -44,25 +47,26 @@ bool Engine::Initialize() {
 
 void Engine::Cleanup() {
     // Clean up the engine
+    m_event.reset();
     SDL_DestroyWindow(m_window);
     m_window = nullptr;
     SDL_DestroyRenderer(m_renderer);
     m_renderer = nullptr;
+    IMG_Quit();
     SDL_Quit();
     Logger::GetInstance().info("Engine is cleaned up");
 }
 
-void Engine::AddSprite(Sprite* sprite) {
+void Engine::AddObject(GameObject* object) {
     // Add a sprite to the engine
-    sprite->Load(m_renderer);
-    m_sprites.push_back(sprite);
+    object->GetSprite()->Load(m_renderer);
+    m_objects.push_back(object);
 }
 
 void Engine::Run() {
     // Run the engine
     Logger::GetInstance().info("Engine is running");
     bool quit = false;
-    SDL_Event e;
     Uint32 last_time = SDL_GetTicks();
     Uint32 current_time = 0;
     float delta = 0.0f;
@@ -72,16 +76,19 @@ void Engine::Run() {
         delta = (current_time - last_time) / 1000.0f;
         last_time = current_time;
 
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
+        while (SDL_PollEvent(m_event.get()) != 0) {
+            if (m_event->type == SDL_QUIT) {
                 quit = true;
+            }
+            for (GameObject* object : m_objects) {
+                object->Update(m_event.get());
             }
         }
         SDL_RenderClear(m_renderer);
         // Draw the sprites
-        for (Sprite* sprite : m_sprites) {
-            sprite->Update(delta);
-            sprite->Render(m_renderer);
+        for (GameObject* object : m_objects) {
+            object->GetSprite()->Update(delta);
+            object->GetSprite()->Render(m_renderer);
         }
         SDL_RenderPresent(m_renderer);
     }
