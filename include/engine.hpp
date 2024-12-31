@@ -19,7 +19,6 @@ class LIB_EXPORT Engine {
  private:
   Setting m_setting;
   SDL_Window* m_window{nullptr};
-  SDL_Surface* m_surface{nullptr};
   SDL_Renderer* m_renderer{nullptr};
   std::deque<Sprite*> m_sprites;
   bool Initialize();

@@ -10,7 +10,15 @@ FILE (GLOB SRC
 	${ROOT_PROJECT_DIR}/src/*.hpp
 	${ROOT_PROJECT_DIR}/src/*.h
 )
-LIST(REMOVE_ITEM SRC REMOVE_ITEM ${ROOT_PROJECT_DIR}/src/engine.cpp) # Remove root project included source file
+
+FILE(GLOB HPP_FILES "${ROOT_PROJECT_DIR}/include/*.hpp")
+set(REMOVE_FILES)
+FOREACH(HPP_FILE ${HPP_FILES})
+    STRING(REPLACE ".hpp" ".cpp" CPP_FILE ${HPP_FILE})
+    STRING(REPLACE "/include/" "/src/" CPP_FILE ${CPP_FILE})
+    LIST(APPEND REMOVE_FILES ${CPP_FILE})
+ENDFOREACH()
+LIST(REMOVE_ITEM SRC REMOVE_ITEM ${REMOVE_FILES}) # Remove root project included source file
 
 SOURCE_GROUP(src FILES ${SRC})
 

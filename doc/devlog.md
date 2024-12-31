@@ -54,3 +54,12 @@
     understand link property:
     https://stackoverflow.com/questions/69783203/examples-of-when-public-private-interface-should-be-used-in-cmake
     
+- 2024/12/31
+
+    check for MSVC support
+    TARGET_LINK_LIBRARIES PUBLIC/PRIVATE
+
+    https://stackoverflow.com/questions/69783203/examples-of-when-public-private-interface-should-be-used-in-cmake
+
+    warning C4251:
+    https://www.cnblogs.com/zhangyz/articles/6238841.html

@@ -44,8 +44,6 @@ bool Engine::Initialize() {
 
 void Engine::Cleanup() {
     // Clean up the engine
-    SDL_FreeSurface(m_surface);
-    m_surface = nullptr;
     SDL_DestroyWindow(m_window);
     m_window = nullptr;
     SDL_DestroyRenderer(m_renderer);
@@ -56,7 +54,7 @@ void Engine::Cleanup() {
 
 void Engine::AddSprite(Sprite* sprite) {
     // Add a sprite to the engine
-    sprite->Attach(m_renderer);
+    sprite->Load(m_renderer);
     m_sprites.push_back(sprite);
 }
 
@@ -83,10 +81,9 @@ void Engine::Run() {
         // Draw the sprites
         for (Sprite* sprite : m_sprites) {
             sprite->Update(delta);
-            sprite->Render();
+            sprite->Render(m_renderer);
         }
         SDL_RenderPresent(m_renderer);
-        // SDL_UpdateWindowSurface(m_window);
     }
 }
 

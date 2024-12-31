@@ -3,7 +3,7 @@
 #include "engine.hpp"  // NOLINT
 #include "sprite.hpp"  // NOLINT
 
-int main() {
+int main(int argc, char* argv[]) {
     Patungkuonu::Setting setting;
     setting.SetWindowName("Demo");
     setting.SetWindowWidth(1024);
@@ -19,7 +19,7 @@ int main() {
 
     Patungkuonu::Engine engine(setting);
     engine.AddSprite(&sprite);
-    sprite.UpdateRange(6, 11, SDL_FLIP_HORIZONTAL);
+    sprite.UpdateRange(6, 11, Patungkuonu::Flip::FLIP_HORIZONTAL);
     engine.Run();
 
     return 0;
