@@ -30,7 +30,7 @@ void Sprite::Load(SDL_Renderer* renderer) {
     if (m_texture_size.height % m_size.height != 0 || m_texture_size.width % m_size.width != 0) {
         Logger::GetInstance().error("Invalid sprite size: " + m_path);
     }
-    UpdateFrames(m_start_frame, m_end_frame);
+    UpdateFrames();
 }
 
 void Sprite::UpdateFrames(size_t start_frame, size_t end_frame) {

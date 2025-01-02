@@ -23,6 +23,7 @@ bool Engine::Initialize() {
     Logger::GetInstance().info("Engine is initialized");
     bool success = true;
     m_event = std::make_unique<SDL_Event>();
+    m_keyboard_controller = std::make_unique<KeyboardController>();
     IMG_Init(IMG_INIT_PNG);
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         Logger::GetInstance().error("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
@@ -80,15 +81,14 @@ void Engine::Run() {
             if (m_event->type == SDL_QUIT) {
                 quit = true;
             }
-            for (GameObject* object : m_objects) {
-                object->Update(m_event.get());
-            }
+            m_keyboard_controller->Update(m_event.get());
         }
         SDL_RenderClear(m_renderer);
         // Draw the sprites
         for (GameObject* object : m_objects) {
-            object->GetSprite()->Update(delta);
-            object->GetSprite()->Render(m_renderer);
+            object->Update(delta);
+            object->Act(m_keyboard_controller.get());
+            object->Render(m_renderer);
         }
         SDL_RenderPresent(m_renderer);
     }

@@ -23,7 +23,7 @@ typedef enum LIB_EXPORT {
   FLIP_NONE = SDL_FLIP_NONE,
   FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL,
   FLIP_VERTICAL = SDL_FLIP_VERTICAL
-} Flip;
+} SpriteFlip;
 
 class LIB_EXPORT Sprite {
  public:
@@ -33,6 +33,7 @@ class LIB_EXPORT Sprite {
   void Render(SDL_Renderer* renderer);
   void Update(float delta);
   void UpdateFrames(size_t start_frame, size_t end_frame);
+  void UpdateFrames() { UpdateFrames(m_start_frame, m_end_frame); }
   // Setters and Getters
   void SetPath(const std::string& path) { m_path = path; }
   const std::string& GetPath() const { return m_path; }
@@ -48,12 +49,12 @@ class LIB_EXPORT Sprite {
   Position GetPosition() const { return {m_position.x, m_position.y}; }
   void SetPlaybackSpeed(float speed) { m_playback_speed = speed; }
   float GetPlaybackSpeed() const { return m_playback_speed; }
-  void SetRange(int start, int end) {
+  void SetRange(size_t start, size_t end) {
     m_start_frame = start;
     m_end_frame = end;
-  }
-  void SetFlip(Flip flip) { m_flip = flip; }
-  Flip GetFlip() const { return m_flip; }
+  }  
+  void SetFlip(SpriteFlip flip) { m_flip = flip; }
+  SpriteFlip GetFlip() const { return m_flip; }
   void SetRatio(float ratio) { m_ratio = ratio; }
   float GetRatio() const { return m_ratio; }
 
@@ -70,7 +71,7 @@ class LIB_EXPORT Sprite {
   size_t m_total_frames = 0;
   size_t m_start_frame = 0;
   size_t m_end_frame = 0;
-  Flip m_flip = FLIP_NONE;
+  SpriteFlip m_flip = FLIP_NONE;
   std::vector<SDL_Rect> m_vec_frames;
   SDL_Texture* m_texture{nullptr};
 };

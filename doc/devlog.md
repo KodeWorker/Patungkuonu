@@ -14,7 +14,7 @@
 
     pip install cpplint==2.0.0
     ```
-    cpplint --filter "-build/include_subdir,-build/include_what_you_use" --linelength=120 --exclude .\3rdparty\ --exclude .\bin\ --exclude .\build\ --exclude .\data\ --recursive .\
+    cpplint --linelength=120 --exclude .\3rdparty\ --exclude .\bin\ --exclude .\build\ --exclude .\data\ --recursive .\
     ```
     CMAKE_CXX_CPPLINT only works in Makefile and Ninja generators
 

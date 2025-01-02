@@ -23,8 +23,8 @@ int main(int argc, char* argv[]) {
     player.SetPosition(Patungkuonu::Position{0, 0});
     player.SetSize(Patungkuonu::Size{64, 64});
     player.SetCollideType(Patungkuonu::CollideType::COLLIDE_CIRCLE);
-    player.SetCollideCoefficients({.8f});
     player.SetSprite(&sprite);
+    player.SetActSpeed(0.1f);
 
     Patungkuonu::Engine engine(setting);
     engine.AddObject(&player);

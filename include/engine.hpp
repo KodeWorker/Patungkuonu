@@ -7,6 +7,7 @@
 #include <deque>
 #include "setting.hpp"  // NOLINT
 #include "object.hpp"  // NOLINT
+#include "controller.hpp"  // NOLINT
 #include "lib_export_options.hpp"  // NOLINT
 
 namespace Patungkuonu {  // namespace Patungkuonu
@@ -20,6 +21,7 @@ class LIB_EXPORT Engine {
  private:
   Setting m_setting;
   std::unique_ptr<SDL_Event> m_event;
+  std::unique_ptr<KeyboardController> m_keyboard_controller;
   SDL_Window* m_window{nullptr};
   SDL_Renderer* m_renderer{nullptr};
   std::deque<GameObject*> m_objects;
