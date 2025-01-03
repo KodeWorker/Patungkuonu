@@ -11,6 +11,11 @@
 
 namespace Patungkuonu {  // namespace Patungkuonu
 
+struct LIB_EXPORT Direction {
+  float x;
+  float y;
+};
+
 typedef enum LIB_EXPORT {
   COLLIDE_NONE,
   COLLIDE_RECT,
@@ -52,10 +57,8 @@ class LIB_EXPORT GameObject {
   float GetActSpeed() const { return m_act_speed; }
   void SetActive(bool active) { m_active = active; }
   bool GetActive() const { return m_active; }
-  void SetCurrentState(int current_state) { m_current_state = current_state; }
-  int GetCurrentState() const { return m_current_state; }
-  void SetPreviousState(int previous_state) { m_previous_state = previous_state; }
-  int GetPreviousState() const { return m_previous_state; }
+  void SetCollide(bool collide) { m_collide = collide; }
+  bool GetCollide() const { return m_collide; }
   void SetCollideType(CollideType collide_type) { m_collide_type = collide_type; }
   CollideType GetCollideType() const { return m_collide_type; }
 
@@ -67,8 +70,7 @@ class LIB_EXPORT GameObject {
   float m_time{0.0f};
   float m_act_speed{1.0f};
   bool m_active{false};
-  int m_current_state{0};
-  int m_previous_state{0};
+  bool m_collide{false};
   CollideType m_collide_type{COLLIDE_NONE};
 };
 
@@ -76,21 +78,37 @@ class LIB_EXPORT Character : public GameObject {
  public:
   Character();
   ~Character();
-  void Move(Position position);
   void Act(Controller* controller) override;
   virtual void React(Controller* controller) = 0;
   // Setters and Getters
   void SetMoveSpeed(int move_speed) { m_move_speed = move_speed; }
   int GetMoveSpeed() const { return m_move_speed; }
+  void SetMoveDirection(Direction move_direction) { m_move_direction = move_direction; }
+  Direction GetMoveDirection() const { return {m_move_direction.x, m_move_direction.y}; }
+  void SetMoving(bool moving) { m_moving = moving; }
+  bool GetMoving() const { return m_moving; }
+  void SetAttacking(bool attacking) { m_attacking = attacking; }
+  bool GetAttacking() const { return m_attacking; }
+  void SetCurrentState(int current_state) { m_current_state = current_state; }
+  int GetCurrentState() const { return m_current_state; }
+  void SetPreviousState(int previous_state) { m_previous_state = previous_state; }
+  int GetPreviousState() const { return m_previous_state; }
 
  private:
   int m_move_speed{5};
+  Direction m_move_direction{0, 0};
+  bool m_moving{false};
+  bool m_attacking{false};
+  int m_current_state{0};
+  int m_previous_state{0};
 };
 
 class LIB_EXPORT Player : public Character {
  public:
   Player();
   ~Player();
+  void Move();
+  void UpdateStateFrames();
   void React(Controller* controller) override;
 };
 

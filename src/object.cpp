@@ -66,11 +66,6 @@ Character::Character() {
 Character::~Character() {
 }
 
-void Character::Move(Position position) {
-    SetPosition(position);
-    GetSprite()->SetPosition(position);
-}
-
 void Character::Act(Controller* controller) {
     // Act the player
     if (!GetActive()) {
@@ -86,6 +81,7 @@ void Character::Act(Controller* controller) {
 }
 
 Player::Player() {
+    SetActSpeed(0.1f);
 }
 
 Player::~Player() {
@@ -96,49 +92,107 @@ void Player::React(Controller* controller) {
         KeyboardController* keyboard_controller = dynamic_cast<KeyboardController*>(controller);
         // 8-directional movement
         if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
-                GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
+            SetMoving(true);
+            SetMoveDirection({-0.7071f, -0.7071f});
         } else if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
-                GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
+            SetMoving(true);
+            SetMoveDirection({0.7071f, -0.7071f});
         } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
-                GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
+            SetMoving(true);
+            SetMoveDirection({-0.7071f, 0.7071f});
         } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
-                GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
+            SetMoving(true);
+            SetMoveDirection({0.7071f, 0.7071f});
         } else if (keyboard_controller->IsPressed(SDLK_w)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x, GetPosition().y - GetMoveSpeed()});
+            SetMoving(true);
+            SetMoveDirection({0, -1});
         } else if (keyboard_controller->IsPressed(SDLK_s)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x, GetPosition().y + GetMoveSpeed()});
+            SetMoving(true);
+            SetMoveDirection({0, 1});
         } else if (keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(3);
-            GetSprite()->SetRange(6, 11);
-            GetSprite()->SetFlip(SpriteFlip::FLIP_HORIZONTAL);
-            Move({GetPosition().x - GetMoveSpeed(), GetPosition().y});
+            SetMoving(true);
+            SetMoveDirection({-1, 0});
         } else if (keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(4);
-            GetSprite()->SetRange(6, 11);
-            GetSprite()->SetFlip(SpriteFlip::FLIP_NONE);
-            Move({GetPosition().x + GetMoveSpeed(), GetPosition().y});
+            SetMoving(true);
+            SetMoveDirection({1, 0});
         } else {
-            SetCurrentState(0);
-            GetSprite()->SetRange(0, 5);
+            SetMoving(false);
         }
     } else {
         Logger::GetInstance().error("Invalid controller type");
+    }
+    if (!GetAttacking()) {
+        Move();
+    }
+    UpdateStateFrames();
+}
+
+void Player::Move() {
+    // Move the player
+    if (GetMoving()) {
+        SetPosition({GetPosition().x + static_cast<int>(GetMoveDirection().x * GetMoveSpeed()),
+            GetPosition().y + static_cast<int>(GetMoveDirection().y * GetMoveSpeed())});
+        if (GetMoveDirection().x > 0) {
+            SetCurrentState(4);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_NONE);
+        } else if (GetMoveDirection().x < 0) {
+            SetCurrentState(4);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_HORIZONTAL);
+        } else if (GetMoveDirection().y > 0) {
+            SetCurrentState(3);
+        } else if (GetMoveDirection().y < 0) {
+            SetCurrentState(5);
+        }
+    } else {
+        if (GetMoveDirection().x > 0) {
+            SetCurrentState(1);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_NONE);
+        } else if (GetMoveDirection().x < 0) {
+            SetCurrentState(1);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_HORIZONTAL);
+        } else if (GetMoveDirection().y > 0) {
+            SetCurrentState(0);
+        } else if (GetMoveDirection().y < 0) {
+            SetCurrentState(2);
+        }
+    }
+}
+
+void Player::UpdateStateFrames() {
+    // Update Frames
+    switch (GetCurrentState()) {
+    case 0:
+        GetSprite()->SetRange(0, 5);
+        break;
+    case 1:
+        GetSprite()->SetRange(6, 11);
+        break;
+    case 2:
+        GetSprite()->SetRange(12, 17);
+        break;
+    case 3:
+        GetSprite()->SetRange(18, 23);
+        break;
+    case 4:
+        GetSprite()->SetRange(24, 29);
+        break;
+    case 5:
+        GetSprite()->SetRange(30, 35);
+        break;
+    case 6:
+        GetSprite()->SetRange(36, 39);
+        break;
+    case 7:
+        GetSprite()->SetRange(42, 45);
+        break;
+    case 8:
+        GetSprite()->SetRange(48, 51);
+        break;
+    case 9:
+        GetSprite()->SetRange(54, 57);
+        break;
+    default:
+        break;
     }
 }
 
