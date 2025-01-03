@@ -57,8 +57,6 @@ class LIB_EXPORT Sprite {
   SpriteFlip GetFlip() const { return m_flip; }
   void SetRatio(float ratio) { m_ratio = ratio; }
   float GetRatio() const { return m_ratio; }
-  void SetPlayOnece(bool play_once) { m_play_once = play_once; }
-  bool GetPlayOnce() const { return m_play_once; }
 
  private:
   std::string m_name = "";
@@ -76,7 +74,6 @@ class LIB_EXPORT Sprite {
   SpriteFlip m_flip = FLIP_NONE;
   std::vector<SDL_Rect> m_vec_frames;
   SDL_Texture* m_texture{nullptr};
-  bool m_play_once = false;
 };
 
 }  // namespace Patungkuonu
