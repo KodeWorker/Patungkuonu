@@ -53,7 +53,9 @@ cmake --build . --config release
 - [x] sprite object
   - [x] basic operation
   - [x] subsqence of a sprite
+  - [ ] play once option
 - [ ] player object
   - [x] basic movement controls
   - [ ] basic collision
+  - [ ] basic attacks
 - [ ] world tile
