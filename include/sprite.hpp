@@ -19,6 +19,11 @@ struct LIB_EXPORT Position {
   int y;
 };
 
+struct LIB_EXPORT Ratio {
+  float x;
+  float y;
+};
+
 typedef enum LIB_EXPORT {
   FLIP_NONE = SDL_FLIP_NONE,
   FLIP_HORIZONTAL = SDL_FLIP_HORIZONTAL,
@@ -55,16 +60,18 @@ class LIB_EXPORT Sprite {
   }
   void SetFlip(SpriteFlip flip) { m_flip = flip; }
   SpriteFlip GetFlip() const { return m_flip; }
-  void SetRatio(float ratio) { m_ratio = ratio; }
-  float GetRatio() const { return m_ratio; }
+  void SetRatio(Ratio ratio) {
+    m_ratio.x = ratio.x;
+    m_ratio.y = ratio.y;
+  }
+  Ratio GetRatio() const { return {m_ratio.x, m_ratio.y}; }
 
  private:
-  std::string m_name = "";
   std::string m_path = "";
   Size m_size = {0, 0};
   Size m_texture_size = {0, 0};
   Position m_position = {0, 0};
-  float m_ratio = 1.0f;
+  Ratio m_ratio{1.0f, 1.0f};
   float m_time = 0.0f;  // in seconds
   float m_playback_speed = 60.0f;  // 60 frames per second
   size_t m_current_frame = 0;

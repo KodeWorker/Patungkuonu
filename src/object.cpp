@@ -81,7 +81,6 @@ void Character::Act(Controller* controller) {
 }
 
 Player::Player() {
-    SetActSpeed(0.1f);
 }
 
 Player::~Player() {

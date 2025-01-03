@@ -10,6 +10,7 @@ namespace Patungkuonu {  // namespace HPP
 Engine::Engine(const Setting& setting) {
     // Initialize the engine
     m_setting = setting;
+    Logger::GetInstance().set_filepath(m_setting.GetLogPath());
     Initialize();
 }
 
@@ -71,6 +72,7 @@ void Engine::Run() {
     Uint32 last_time = SDL_GetTicks();
     Uint32 current_time = 0;
     float delta = 0.0f;
+    Uint32 frame_delay = 1000 / m_setting.GetFrameRate();
 
     while (!quit) {
         current_time = SDL_GetTicks();
@@ -91,6 +93,12 @@ void Engine::Run() {
             object->Render(m_renderer);
         }
         SDL_RenderPresent(m_renderer);
+
+         // Frame rate control
+        Uint32 frame_time = SDL_GetTicks() - current_time;
+        if (frame_delay > frame_time) {
+            SDL_Delay(frame_delay - frame_time);
+        }
     }
 }
 

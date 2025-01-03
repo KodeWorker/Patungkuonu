@@ -9,13 +9,13 @@ int main(int argc, char* argv[]) {
     setting.SetWindowName("Demo");
     setting.SetWindowWidth(1024);
     setting.SetWindowHeight(768);
+    setting.SetFrameRate(30);
 
     Patungkuonu::Sprite player_sprite;
     player_sprite.SetPath("../assets/Cute_Fantasy_Free/Player/Player.png");
     player_sprite.SetSize(Patungkuonu::Size{32, 32});
     player_sprite.SetPlaybackSpeed(5.0f);
     player_sprite.SetRange(0, 5);
-    player_sprite.SetRatio(2.0f);
 
     Patungkuonu::Player player;
     player.SetName("Player");
@@ -30,7 +30,6 @@ int main(int argc, char* argv[]) {
     slime_sprite.SetSize(Patungkuonu::Size{32, 32});
     slime_sprite.SetPlaybackSpeed(5.0f);
     slime_sprite.SetRange(0, 3);
-    slime_sprite.SetRatio(2.0f);
 
     Patungkuonu::Enemy enemy;
     enemy.SetName("Slime");

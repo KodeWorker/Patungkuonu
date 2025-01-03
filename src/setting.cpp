@@ -40,6 +40,22 @@ void Setting::SetWindowHeight(int window_height) {
     m_window_height = window_height;
 }
 
+const std::string& Setting::GetLogPath() const {
+    return m_log_path;
+}
+
+void Setting::SetLogPath(const std::string& log_path) {
+    m_log_path = log_path;
+}
+
+const int& Setting::GetFrameRate() const {
+    return m_frame_rate;
+}
+
+void Setting::SetFrameRate(int frame_rate) {
+    m_frame_rate = frame_rate;
+}
+
 void Setting::Serialize(const std::string& path) const {
     // Serialize the data
     std::ofstream outFile(path, std::ios::binary);

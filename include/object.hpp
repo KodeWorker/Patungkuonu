@@ -44,11 +44,17 @@ class LIB_EXPORT GameObject {
   void SetSize(Size size) {
     m_size.width = size.width;
     m_size.height = size.height;
+    if (m_sprite != nullptr) {
+      m_sprite->SetRatio({static_cast<float>(size.width) / m_sprite->GetSize().width,
+                          static_cast<float>(size.height) / m_sprite->GetSize().height});
+    }
   }
   Size GetSize() const { return {m_size.width, m_size.height}; }
   void SetSprite(Sprite* sprite) {
     m_sprite = sprite;
     m_sprite->SetPosition(m_position);
+    m_sprite->SetRatio({static_cast<float>(m_size.width) / m_sprite->GetSize().width,
+                        static_cast<float>(m_size.height) / m_sprite->GetSize().height});
   }
   Sprite* GetSprite() { return m_sprite; }
   void SetTime(float time) { m_time = time; }

@@ -69,3 +69,9 @@
     Multiple key press in SDL:
 
     https://stackoverflow.com/questions/1252976/how-to-handle-multiple-keypresses-at-once-with-sdl
+
+- 2025/1/3
+
+    High CPU Usage -> require frame rate control
+
+    https://discourse.libsdl.org/t/high-cpu-usage/14676/12
