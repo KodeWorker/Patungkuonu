@@ -11,18 +11,7 @@ GameObject::GameObject() {
 GameObject::~GameObject() {
 }
 
-Player::Player() {
-}
-
-Player::~Player() {
-}
-
-void Player::Move(Position position) {
-    SetPosition(position);
-    GetSprite()->SetPosition(position);
-}
-
-void Player::Update(float delta) {
+void GameObject::Update(float delta) {
     // Update the player
     if (GetSprite() != nullptr) {
         GetSprite()->Update(delta);
@@ -36,68 +25,7 @@ void Player::Update(float delta) {
     }
 }
 
-void Player::Act(Controller* controller) {
-    // Act the player
-    if (!GetActive()) {
-        return;
-    }
-    if (typeid(*controller) == typeid(KeyboardController)) {
-        KeyboardController* keyboard_controller = dynamic_cast<KeyboardController*>(controller);
-        // 8-directional movement        
-        if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
-                  GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
-        } else if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
-                  GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
-        } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
-                  GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
-        } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
-                  GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
-        } else if (keyboard_controller->IsPressed(SDLK_w)) {
-            SetCurrentState(1);
-            GetSprite()->SetRange(12, 17);
-            Move({GetPosition().x, GetPosition().y - GetMoveSpeed()});
-        } else if (keyboard_controller->IsPressed(SDLK_s)) {
-            SetCurrentState(2);
-            GetSprite()->SetRange(18, 23);
-            Move({GetPosition().x, GetPosition().y + GetMoveSpeed()});
-        } else if (keyboard_controller->IsPressed(SDLK_a)) {
-            SetCurrentState(3);
-            GetSprite()->SetRange(6, 11);
-            GetSprite()->SetFlip(SpriteFlip::FLIP_HORIZONTAL);
-            Move({GetPosition().x - GetMoveSpeed(), GetPosition().y});
-        } else if (keyboard_controller->IsPressed(SDLK_d)) {
-            SetCurrentState(4);
-            GetSprite()->SetRange(6, 11);
-            GetSprite()->SetFlip(SpriteFlip::FLIP_NONE);
-            Move({GetPosition().x + GetMoveSpeed(), GetPosition().y});
-        } else{
-            SetCurrentState(0);
-            GetSprite()->SetRange(0, 5);
-        }
-    } else {
-        Logger::GetInstance().error("Invalid controller type");
-    }    
-    // State changed
-    if(GetPreviousState() != GetCurrentState()) {        
-        GetSprite()->UpdateFrames();
-    }
-    SetPreviousState(GetCurrentState());
-    SetActive(false);
-}
-
-void Player::Render(SDL_Renderer* renderer) {
+void GameObject::Render(SDL_Renderer* renderer) {
     // Render the player
     if (GetSprite() != nullptr) {
         GetSprite()->Render(renderer);
@@ -106,7 +34,7 @@ void Player::Render(SDL_Renderer* renderer) {
     }
 }
 
-bool Player::Collide(GameObject* object) {
+bool GameObject::Collide(GameObject* object) {
     if (GetCollideType() == CollideType::COLLIDE_NONE ||
         object->GetCollideType() == CollideType::COLLIDE_NONE) {
         return false;
@@ -130,6 +58,98 @@ bool Player::Collide(GameObject* object) {
         Logger::GetInstance().error("Invalid collision type");
         return false;
     }
+}
+
+Character::Character() {
+}
+
+Character::~Character() {
+}
+
+void Character::Move(Position position) {
+    SetPosition(position);
+    GetSprite()->SetPosition(position);
+}
+
+void Character::Act(Controller* controller) {
+    // Act the player
+    if (!GetActive()) {
+        return;
+    }
+    React(controller);
+    // State changed
+    if (GetPreviousState() != GetCurrentState()) {
+        GetSprite()->UpdateFrames();
+    }
+    SetPreviousState(GetCurrentState());
+    SetActive(false);
+}
+
+Player::Player() {
+}
+
+Player::~Player() {
+}
+
+void Player::React(Controller* controller) {
+    if (typeid(*controller) == typeid(KeyboardController)) {
+        KeyboardController* keyboard_controller = dynamic_cast<KeyboardController*>(controller);
+        // 8-directional movement
+        if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_a)) {
+            SetCurrentState(1);
+            GetSprite()->SetRange(12, 17);
+            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
+                GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
+        } else if (keyboard_controller->IsPressed(SDLK_w) && keyboard_controller->IsPressed(SDLK_d)) {
+            SetCurrentState(1);
+            GetSprite()->SetRange(12, 17);
+            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
+                GetPosition().y - static_cast<int>(GetMoveSpeed() * 0.7071)});
+        } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_a)) {
+            SetCurrentState(2);
+            GetSprite()->SetRange(18, 23);
+            Move({GetPosition().x - static_cast<int>(GetMoveSpeed() * 0.7071),
+                GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
+        } else if (keyboard_controller->IsPressed(SDLK_s) && keyboard_controller->IsPressed(SDLK_d)) {
+            SetCurrentState(2);
+            GetSprite()->SetRange(18, 23);
+            Move({GetPosition().x + static_cast<int>(GetMoveSpeed() * 0.7071),
+                GetPosition().y + static_cast<int>(GetMoveSpeed() * 0.7071)});
+        } else if (keyboard_controller->IsPressed(SDLK_w)) {
+            SetCurrentState(1);
+            GetSprite()->SetRange(12, 17);
+            Move({GetPosition().x, GetPosition().y - GetMoveSpeed()});
+        } else if (keyboard_controller->IsPressed(SDLK_s)) {
+            SetCurrentState(2);
+            GetSprite()->SetRange(18, 23);
+            Move({GetPosition().x, GetPosition().y + GetMoveSpeed()});
+        } else if (keyboard_controller->IsPressed(SDLK_a)) {
+            SetCurrentState(3);
+            GetSprite()->SetRange(6, 11);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_HORIZONTAL);
+            Move({GetPosition().x - GetMoveSpeed(), GetPosition().y});
+        } else if (keyboard_controller->IsPressed(SDLK_d)) {
+            SetCurrentState(4);
+            GetSprite()->SetRange(6, 11);
+            GetSprite()->SetFlip(SpriteFlip::FLIP_NONE);
+            Move({GetPosition().x + GetMoveSpeed(), GetPosition().y});
+        } else {
+            SetCurrentState(0);
+            GetSprite()->SetRange(0, 5);
+        }
+    } else {
+        Logger::GetInstance().error("Invalid controller type");
+    }
+}
+
+Enemy::Enemy() {
+}
+
+Enemy::~Enemy() {
+}
+
+void Enemy::React(Controller* controller) {
+    // TODO(kodeworker): Implement enemy AI
 }
 
 }  // namespace Patungkuonu

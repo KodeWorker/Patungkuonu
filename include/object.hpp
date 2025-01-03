@@ -4,6 +4,7 @@
 #define INCLUDE_OBJECT_HPP_
 #include <string>
 #include <vector>
+#include <memory>
 #include "sprite.hpp"  // NOLINT
 #include "controller.hpp"  // NOLINT
 #include "lib_export_options.hpp"  // NOLINT
@@ -20,16 +21,19 @@ class LIB_EXPORT GameObject {
  public:
   GameObject();
   ~GameObject();
-  virtual void Update(float delta) = 0;
+  void Update(float delta);
+  void Render(SDL_Renderer* renderer);
+  bool Collide(GameObject* object);
   virtual void Act(Controller* controller) = 0;
-  virtual void Render(SDL_Renderer* renderer) = 0;
-  virtual bool Collide(GameObject* object) = 0;
   // Setters and Getters
   void SetName(const std::string& name) { m_name = name; }
   const std::string& GetName() const { return m_name; }
   void SetPosition(Position position) {
     m_position.x = position.x;
     m_position.y = position.y;
+    if (m_sprite != nullptr) {
+      m_sprite->SetPosition(position);
+    }
   }
   Position GetPosition() const { return {m_position.x, m_position.y}; }
   void SetSize(Size size) {
@@ -37,7 +41,10 @@ class LIB_EXPORT GameObject {
     m_size.height = size.height;
   }
   Size GetSize() const { return {m_size.width, m_size.height}; }
-  void SetSprite(Sprite* sprite) { m_sprite = sprite; }
+  void SetSprite(Sprite* sprite) {
+    m_sprite = sprite;
+    m_sprite->SetPosition(m_position);
+  }
   Sprite* GetSprite() { return m_sprite; }
   void SetTime(float time) { m_time = time; }
   float GetTime() const { return m_time; }
@@ -65,21 +72,33 @@ class LIB_EXPORT GameObject {
   CollideType m_collide_type{COLLIDE_NONE};
 };
 
-class LIB_EXPORT Player : public GameObject {
+class LIB_EXPORT Character : public GameObject {
  public:
-  Player();
-  ~Player();
+  Character();
+  ~Character();
   void Move(Position position);
-  void Update(float delta) override;
   void Act(Controller* controller) override;
-  void Render(SDL_Renderer* renderer) override;
-  bool Collide(GameObject* object) override;
+  virtual void React(Controller* controller) = 0;
   // Setters and Getters
   void SetMoveSpeed(int move_speed) { m_move_speed = move_speed; }
   int GetMoveSpeed() const { return m_move_speed; }
 
  private:
   int m_move_speed{5};
+};
+
+class LIB_EXPORT Player : public Character {
+ public:
+  Player();
+  ~Player();
+  void React(Controller* controller) override;
+};
+
+class LIB_EXPORT Enemy : public Character {
+ public:
+  Enemy();
+  ~Enemy();
+  void React(Controller* controller) override;
 };
 
 }  // namespace Patungkuonu

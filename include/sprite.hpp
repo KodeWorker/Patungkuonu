@@ -52,7 +52,7 @@ class LIB_EXPORT Sprite {
   void SetRange(size_t start, size_t end) {
     m_start_frame = start;
     m_end_frame = end;
-  }  
+  }
   void SetFlip(SpriteFlip flip) { m_flip = flip; }
   SpriteFlip GetFlip() const { return m_flip; }
   void SetRatio(float ratio) { m_ratio = ratio; }
